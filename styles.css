@@ -191,8 +191,11 @@ body {
 }
 
 #granca {
-    max-width: 100%;
+    max-width: 80%;
     border-radius: 10px;
+    max-height: 50%;
+    display: flex; 
+    justify-content: center;
 }
 
 /* Columna derecha */
