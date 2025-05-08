@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gran Canaria</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Columna izquierda -->
+        <div class="left">
+            <h1 class="title">Fuerteventura</h1>
+            <img class="logo" src="logo.jpg" alt="logo">
+            <img id="granca" src="grancanaria.png" alt="logo">
+        </div>
+
+        <!-- Columna derecha con fondo translúcido y blur -->
+        <div class="right">
+            <h1>Comprar entradas</h1>
+
+            <!-- General -->
+            <div class="general">
+                <h3>General:</h3>
+                <div class="contador">
+                    <button class="restar">-</button>
+                    <input type="number" class="cantidad" value="1" min="1">
+                    <button class="sumar">+</button>
+                    <span class="precio">60€</span>
+                </div>
+            </div>
+            <br><br>
+
+            <!-- VIP -->
+            <div class="vip">
+                <h3>VIP:</h3>
+                <div class="contador">
+                    <button class="restar">-</button>
+                    <input type="number" class="cantidad" value="1" min="1">
+                    <button class="sumar">+</button>
+                    <span class="precio">110€</span>
+                </div>
+            </div>
+
+            <div class="botones-final">
+                <a class="atras" href="index.html">Atrás</a>
+                <a class="boton-compra" href="comprada.html">Comprar</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Precios de cada tipo de entrada
+        const precios = {
+            general: 60,
+            vip: 110    
+        };
+
+        // Función para actualizar el precio de cada entrada
+        function actualizarPrecio(elemento, tipoEntrada) {
+            const cantidad = parseInt(elemento.querySelector('.cantidad').value) || 1;
+            const precioTotal = elemento.querySelector('.precio');
+            precioTotal.textContent = `${cantidad * precios[tipoEntrada]}€`;
+        }
+
+        // Eventos de los botones y la actualización de precios
+        const entradas = document.querySelectorAll('.general, .vip');
+        
+        entradas.forEach((entrada) => {
+            const btnSumar = entrada.querySelector('.sumar');
+            const btnRestar = entrada.querySelector('.restar');
+            const inputCantidad = entrada.querySelector('.cantidad');
+            const tipoEntrada = entrada.classList[0]; // Obtenemos el tipo (general, vip)
+            
+            // Sumar cantidad
+            btnSumar.addEventListener('click', () => {
+                inputCantidad.value = parseInt(inputCantidad.value) + 1;
+                actualizarPrecio(entrada, tipoEntrada);
+            });
+
+            // Restar cantidad
+            btnRestar.addEventListener('click', () => {
+                const valorActual = parseInt(inputCantidad.value);
+                if (valorActual > 1) {
+                    inputCantidad.value = valorActual - 1;
+                    actualizarPrecio(entrada, tipoEntrada);
+                }
+            });
+
+            // Actualizar precio cuando se cambia el número de entradas
+            inputCantidad.addEventListener('input', () => actualizarPrecio(entrada, tipoEntrada));
+        });
+    </script>
+</body>
+</html>
